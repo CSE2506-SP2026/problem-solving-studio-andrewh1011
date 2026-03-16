@@ -8,6 +8,21 @@ let user_selector = define_new_user_select_field('user_selector', 'Select User',
 });
 $('#sidepanel').append(user_selector);
 
+let information_dialog = define_new_dialog('information_dialog', "Permission Information");
+$('.perm_info').click(function() {
+    let filepath = $('#effective_permissions_panel').attr('filepath');
+    let username = $('#effective_permissions_panel').attr('username');
+    let permission = $(this).attr('permission_name');
+    let file_object = path_to_file[filepath];
+    let user_object = all_users[username];
+    let permission_explanation = allow_user_action(file_object, user_object, permission, true);
+    let explanation_text = get_explanation_text(permission_explanation);
+
+    information_dialog.empty();
+    information_dialog.append(explanation_text);
+    information_dialog.dialog('open');
+});
+
 
 // ---- Display file structure ----
 
